@@ -1,0 +1,35 @@
+{
+    "mappings": {
+        "_doc": {
+            "properties": {
+                "entity": {
+                    "type": "text",
+                    "fields": {
+                        "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                        }
+                    }
+                },
+                "entity_value": {
+                    "type": "text",
+                    "fields": {
+                        "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                        }
+                    }
+                },
+                "date": {
+                    "type": "date"
+                },
+                "count": {
+                    "type": "long"
+                },
+                "growth": {
+                    "type": "long"
+                }
+            }
+        }
+    }
+}

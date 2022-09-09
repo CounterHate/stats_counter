@@ -71,20 +71,21 @@ def count_tweets(date=None, category=None, word=None) -> int:
     return r.json()['count']
 
 
-def add_to_stats(data):
-    r = requests.post(f'{ES}/{STATS_INDEX}/_doc',
+def add_to_stats(data, id):
+    r = requests.put(f'{ES}/{STATS_INDEX}/_doc/{id}',
                       data=json.dumps(data), headers=HEADERS, auth=AUTH)
     print(r.json())
 
 
-def main():
-    curret_date = datetime.now()
+def process_date(curret_date):
+    # curret_date = datetime.now()
     week_ago = curret_date - timedelta(days=6)
 
     categories = get_categories()
     for category in categories:
+        print(f'Processing {category["category"]}')
         category_week_ago = count_tweets(date=week_ago, category=category)
-        category_today = count_tweets(category=category)
+        category_today = count_tweets(date=curret_date, category=category)
         data = {
             'date': int(curret_date.timestamp()),
             'count': category_today,
@@ -92,20 +93,26 @@ def main():
             'entity': 'categories',
             'entity_value': category['category']
         }
-        add_to_stats(data=data)
+        add_to_stats(data=data, id=f'{curret_date.day}-{curret_date.month}-{curret_date.year}')
 
-        for word in category["words"]:
-            word_week_ago = count_tweets(date=week_ago, word=word)
-            word_today = count_tweets(word=word)
-            data = {
-                'date': int(curret_date.timestamp()),
-                'count': word_today,
-                'growth': word_today - word_week_ago,
-                'entity': 'words',
-                'entity_value': word
-            }
-            add_to_stats(data=data)
+        # for word in category["words"]:
+        #     word_week_ago = count_tweets(date=week_ago, word=word)
+        #     word_today = count_tweets(word=word)
+        #     data = {
+        #         'date': int(curret_date.timestamp()),
+        #         'count': word_today,
+        #         'growth': word_today - word_week_ago,
+        #         'entity': 'words',
+        #         'entity_value': word
+        #     }
+        #     add_to_stats(data=data)
 
+def main():
+    today = datetime.now()
+    for i in range(54):
+        print(f'Week #{i}')
+        current_date = today - timedelta(days=5 + 7 * i)
+        process_date(curret_date=current_date)
 
 if __name__ == "__main__":
     main()

@@ -20,6 +20,15 @@
                         }
                     }
                 },
+                "short_date": {
+                    "type": "text",
+                    "fields": {
+                        "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                        }
+                    }
+                },
                 "date": {
                     "type": "date"
                 },

@@ -15,6 +15,7 @@ def process_date(curret_date):
             'date': int(curret_date.timestamp()),
             'short_date': f'{curret_date.day}-{curret_date.month}-{curret_date.year}',
             'count': category_today,
+            'total': False,
             'growth': category_today - category_week_ago,
             'entity': 'categories',
             'entity_value': category['category']

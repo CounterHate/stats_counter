@@ -29,6 +29,9 @@
                         }
                     }
                 },
+                "total": {
+                    "type": "boolean"
+                },
                 "date": {
                     "type": "date"
                 },

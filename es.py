@@ -77,7 +77,7 @@ def count_tweets(date=None, category=None, word=None) -> int:
     return r.json()['count']
 
 
-def count_tweets_for_category(category) -> int:
+def count_tweets_for_category(category, date) -> int:
     hate_words_string = ""
     for w in category['words']:
         hate_words_string += f'{w}, '
@@ -98,8 +98,12 @@ def count_tweets_for_category(category) -> int:
                     'match': {
                         'keywords': hate_words_string,
                     },
-
-                }],
+                }, {
+                    'range': {
+                        'posted_utime': {
+                            'lte': int(date.timestamp())
+                        }
+                    }}],
 
             },
         }

@@ -1,16 +1,7 @@
 from datetime import datetime, timedelta
 import es
-import requests
-import json
 import time
-from save_to_csv import save
-
-
-def add_to_databse(data):
-    r = requests.post('http://hatify.test/api/stats',
-                      data=json.dumps(data), headers=es.HEADERS)
-    print(r)
-    time.sleep(2)
+from save_data import save_to_databse
 
 
 def main():
@@ -40,8 +31,7 @@ def main():
                 'entity_value': f'{category["category"]}'
             }
             print(data)
-            add_to_databse(data=data)
-            # save('stats.csv', data.values())
+            save_to_databse(data=data)
     print(f"{num_of_days} processed in {time.time()-start}")
 
 

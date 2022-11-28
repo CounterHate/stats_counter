@@ -7,7 +7,7 @@ from save_data import save_to_databse
 def main():
     categories = es.get_categories()
     start = time.time()
-    num_of_days = 0
+    num_of_days = 1
     for i in range(num_of_days):
         curret_date = datetime.now()
         curret_date = curret_date.replace(hour=23, minute=59, second=59)

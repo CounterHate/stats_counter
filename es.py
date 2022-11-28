@@ -5,6 +5,7 @@ import datetime
 ES = 'https://es.dc9.dev:9200'
 TWEETS_INDEX = 'tweets'
 HATE_CATEGORIES_INDEX = 'hate_categories'
+PHRASES_INDEX = "stream_phrases"
 STATS_INDEX = 'stats'
 HEADERS = {'content-type': 'application/json'}
 AUTH = ('dc9', 'hohC2wix')
